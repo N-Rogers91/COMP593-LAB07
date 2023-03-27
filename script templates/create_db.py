@@ -43,6 +43,7 @@ def create_people_table():
         updated_at DATETIME NOT NULL
     );
 """
+    
 # Execute the SQL query to create the 'people' table.
 # Database operations like this are called transactions.
 
@@ -59,30 +60,64 @@ def create_people_table():
 
 def populate_people_table():
     """Populates the people table with 200 fake people"""
-    import sqlite3
+
 from datetime import datetime
 con = sqlite3.connect('social_network.db')
 cur = con.cursor()
 # Define an SQL query that inserts a row of data in the people table.
 # The ?'s are placeholders to be fill in when the query is executed.
 # Specific values can be passed as a tuple into the execute() method.
-add_person_query = """
-    INSERT INTO people
-    (
-        name,
-        email,
-        address,
-        city,
-        province,
-        bio,
-        age,
-        created_at,
-        updated_at
-    )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
-""" 
+import faker
+#add_person_query = """
+ #   INSERT INTO people
+  #  (
+        #name,
+        #email,
+        #address,
+        #city,
+       # province,
+      #  bio,
+     #   age,
+    #    created_at,
+   #     updated_at
+  #  )
+ #   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+#""" 
+from faker import Faker
+
+faker = faker.Faker('en_CA')
+for _ in range(200):
+    fake_person_query = (faker.name ,
+                        faker.ascii_free_email() ,
+                        faker.street_address() ,
+                        faker.city() ,
+                        faker.province() ,
+                        faker.cryptocurrency_name() ,
+                        faker.random_int(18 > 49) ,
+                        faker.date_this_decade() , 
+                        faker.date_this_month())
+    con.cursor(fake_person_query)
+
+    con.commit()
+
+    con.close()
+                    
 
 
+
+                
+
+
+
+
+                          
+
+
+
+
+    
+                
+    
 def get_script_dir():
     """Determines the path of the directory in which this script resides
 
