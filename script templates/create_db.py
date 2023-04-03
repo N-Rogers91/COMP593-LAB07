@@ -9,6 +9,9 @@ Usage:
 import os
 import inspect
 import sqlite3
+from faker import Faker
+from datetime import datetime
+import random #?
 
 
 def main():
@@ -54,7 +57,7 @@ def create_people_table():
 # Close the database connection.
 # Pending transactions are not implicitly committed, so any
 # pending transactions that have not been committed will be lost.
-    con.close()
+    #con.close()
 
     return
 
@@ -68,21 +71,7 @@ cur = con.cursor()
 # The ?'s are placeholders to be fill in when the query is executed.
 # Specific values can be passed as a tuple into the execute() method.
 import faker
-#add_person_query = """
- #   INSERT INTO people
-  #  (
-        #name,
-        #email,
-        #address,
-        #city,
-       # province,
-      #  bio,
-     #   age,
-    #    created_at,
-   #     updated_at
-  #  )
- #   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
-#""" 
+ 
 from faker import Faker
 
 faker = faker.Faker('en_CA')
@@ -100,24 +89,10 @@ for _ in range(200):
 
     con.commit()
 
-    con.close()
-                    
+    #con.close()
+    cur.execute("INSERT INTO social_network.db (id, name, email, address, city, province, bio, age, created_at, updated at) VALUES (?, ?, ?, ?, ?, ?, ?)")                    
+    con.close
 
-
-
-                
-
-
-
-
-                          
-
-
-
-
-    
-                
-    
 def get_script_dir():
     """Determines the path of the directory in which this script resides
 
